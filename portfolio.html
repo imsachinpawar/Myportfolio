@@ -46,6 +46,13 @@
         .nav-links a:hover {
             color: #ff9800;
         }
+        #about{
+
+            display: block;
+            margin-left: auto;
+            margin-right: auto;text-align: center;
+            background-color: #333;
+        }
     </style>
 
 </head>
@@ -62,8 +69,9 @@
         </ul>
     </nav>
 <section id="about">
-<img src="about.png" alt="SM Pawar" width="100px">
-<h2>About Me</h2>
+    <h2>ABOUT ME</h2>
+
+<img src="about.png" alt="SM Pawar" width="200px">
 <p>
 Hi, I'm Sachin Pawar! Student of BLDES College of
 Engineering and Technology Vijayapur 586101,
@@ -82,7 +90,7 @@ Example: Technical skills as an unordered list, with each skill's details (e.g.,
         <ul>
             <li>
                 <strong>Technical Skills</strong>
-                <ol>
+                <ol type="A">
                     <li>
                         <strong>Programming Languages:</strong> Python, Java, JavaScript, C++
                     </li>
@@ -99,7 +107,7 @@ Example: Technical skills as an unordered list, with each skill's details (e.g.,
             </li>
             <li>
                 <strong>Non-Technical Skills</strong>
-                <ol>
+                <ol type="I">
                     <li>
                         <strong>Leadership:</strong> Led a team of 10 to deliver a startup project on time.
                     </li>
@@ -125,9 +133,8 @@ Description: Brief project summary.
 Technologies Used: List key technologies for each project.
 Year: Mention when you completed it. -->
 <section id="project">
-<h2>My Projects</h2>
 <table border="2">
-    <!-- <caption>Details</caption> -->
+    <caption>My Projects</caption>
 <thead>
     <th>Name</th>
     <th>Description</th>
@@ -214,12 +221,14 @@ Submit Button: Include a descriptive label for the button. -->
     <input type="radio" name="choose" value="number">Number
 </div> <br>
 <div>
-    <label for="">Feedback</label>
-    <input type="text" aria-expanded="true">
-</div>
+    <label for="feedback">Feedback</label>
+    <!-- <input type="text" aria-expanded="true"> -->
+    <textarea rows="10" cols="10" id="feedback"></textarea>
+</div> <br>
 <button type="submit"> Submit </button>
 </form>
 </section>
+
 
 <section id="testimonials">
     <h2>Testimonials</h2>
@@ -245,21 +254,21 @@ Submit Button: Include a descriptive label for the button. -->
     <!-- Embed a Video -->
     <h3>College video</h3>
     <!-- <iframe width="560" height="315" src="https://youtu.be/LlL_CtOaN7g" title="YouTube video player" frameborder="0" allow="accelerometer autoplay" allowfullscreen></iframe> -->
-    <iframe width="560" height="315" src="https://youtu.be/LlL_CtOaN7g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="700" height="500" src="https://www.youtube.com/embed/LlL_CtOaN7g" title="BLDEA&#39;s V P Dr PG Halakatti College of Engineering &amp; Technology, Vijayapur." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" autoplay allowfullscreen></iframe>
 
     <!-- Embed a Google Map -->
     <h3>My College Location</h3>
-    <iframe src="https://www.google.com/maps/place/BLDEA's+V+P+Dr+PG+Halakatti+College+of+Engineering+%26+Technology/@16.8484717,75.7149178,17z/data=!3m2!4b1!5s0x3bc65589a9a8f743:0xef031d56c30fa3af!4m6!3m5!1s0x3bc6558982df81f7:0x589f36a4e9dc6fab!8m2!3d16.8484717!4d75.7174927!16s%2Fm%2F0hnchgt?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D" width="600" height="450" style="border:0" allowfullscreen="" loading="lazy"> </iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3818.5539199848695!2d75.71491777492194!3d16.84847168394969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc6558982df81f7%3A0x589f36a4e9dc6fab!2sBLDEA&#39;s%20V%20P%20Dr%20PG%20Halakatti%20College%20of%20Engineering%20%26%20Technology!5e0!3m2!1sen!2sin!4v1733286335945!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </section>
 
 
 </body>
 <footer>
     <ul>
-      <li><a href="https://www.linkedin.com/in/sachinpawar-ka/" target="_blank">LinkedIn</a></li> <br>
-      <li><a href="https://github.com/imsachinpawar" target="_blank">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/sachinpawar-ka/" target="_blank"><img src="linkedinlogo.png" alt="50">linkedin</a></li> <br>
+      <li><a href="https://github.com/imsachinpawar" target="_blank"><img src="githublogo.png" alt="50">GitHub</a></li>
     </ul>
-    <p>&copy; 2024 Balakrishna Moghari. All rights reserved.</p>
+    <p>&copy; 2024 Sachin Pawar. All rights reserved.</p>
     <p><a href="#top">Back to Top</a></p>
   </footer>
 </html>
