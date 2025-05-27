@@ -1,0 +1,19 @@
+<!-- templates/portfolio/item_list.html -->
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<a href="{% url 'portfolio:model_create' model_name=model_name %}">Add New</a>
+
+<ul>
+{% for item in items %}
+    <li>
+        {{ item }}
+        <a href="{% url 'portfolio:model_update' model_name=model_name pk=item.pk %}">Edit</a>
+        <a href="{% url 'portfolio:model_delete' model_name=model_name pk=item.pk %}">Delete</a>
+    </li>
+{% empty %}
+    <li>No items found.</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Dashboard</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Full page with background image */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url("{% static 'images/login.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Overlay for darkening background */
+    body::before {
+      content: "";
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+
+    /* Glassmorphism style form container */
+    .form-container {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      padding: 3rem 2.5rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      color: white;
+      box-sizing: border-box;
+    }
+
+    /* Label styling */
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #e0e7ff; /* Tailwind blue-200 */
+    }
+
+    /* Input styling */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.75rem 3.5rem 0.75rem 1rem; /* right padding for arrow */
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.25);
+      color: white;
+      outline: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+    input[type="text"]::placeholder,
+    input[type="password"]::placeholder {
+      color: #d1d5db; /* Tailwind gray-300 */
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 10px 2px rgba(96, 165, 250, 0.75); /* Tailwind blue-400 */
+      color: white;
+    }
+
+    /* Next arrow button inside username input */
+    .input-arrow-btn {
+      position: absolute;
+      top: 50%;
+      right: 0.6rem;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: #bfdbfe; /* Tailwind blue-200 */
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-arrow-btn:hover {
+      color: #3b82f6; /* Tailwind blue-500 */
+    }
+    .input-arrow-btn:disabled {
+      cursor: not-allowed;
+      color: #60a5fa; /* Tailwind blue-400 */
+    }
+
+    /* Container for username input + arrow */
+    .input-with-arrow {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Password container hidden by default */
+    #password-container {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      margin-top: 1.5rem;
+    }
+    #password-container.visible {
+      max-height: 150px;
+      opacity: 1;
+    }
+
+    /* Submit button */
+    #submit-container {
+      margin-top: 2rem;
+      display: none;
+    }
+    #submit-container.visible {
+      display: block;
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      background: #3b82f6; /* Tailwind blue-500 */
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background: #2563eb; /* Tailwind blue-600 */
+    }
+
+    /* Error message styling */
+    .error-message {
+      margin-top: 1rem;
+      color: #f87171; /* Tailwind red-400 */
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container" role="main" aria-label="Login Form">
+    <h2 class="text-center text-3xl font-semibold mb-8" style="color:#e0e7ff;">Sign in to your account</h2>
+
+    <form method="post" id="login-form" novalidate autocomplete="off">
+      {% csrf_token %}
+
+      <!-- Username field with arrow button -->
+      <div id="username-container">
+        <label for="id_username">Username</label>
+        <div class="input-with-arrow">
+          <input
+            type="text"
+            id="id_username"
+            name="username"
+            placeholder="Your username"
+            autocomplete="username"
+            required
+            aria-required="true"
+            autofocus
+          />
+          <button type="button" id="next-arrow" class="input-arrow-btn" aria-label="Next" title="Next">&#8594;</button>
+        </div>
+      </div>
+
+      <!-- Password field initially hidden -->
+      <div id="password-container" aria-hidden="true">
+        <label for="id_password">Password</label>
+        <input
+          type="password"
+          id="id_password"
+          name="password"
+          placeholder="Your password"
+          autocomplete="current-password"
+          required
+          aria-required="true"
+        />
+      </div>
+
+      <!-- Submit button hidden initially -->
+      <div id="submit-container">
+        <button type="submit">Log In</button>
+      </div>
+
+      <!-- Form errors -->
+      {% if form.errors %}
+      <div class="error-message" role="alert" aria-live="assertive">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </form>
+  </div>
+
+  <script>
+    const nextArrow = document.getElementById('next-arrow');
+    const usernameInput = document.getElementById('id_username');
+    const passwordContainer = document.getElementById('password-container');
+    const submitContainer = document.getElementById('submit-container');
+    const passwordInput = document.getElementById('id_password');
+
+    nextArrow.addEventListener('click', () => {
+      if (usernameInput.value.trim() === '') {
+        alert('Please enter your username.');
+        usernameInput.focus();
+        return;
+      }
+
+      // Disable the arrow button and fade it out
+      nextArrow.disabled = true;
+
+      // Show password field and submit button with animation
+      passwordContainer.classList.add('visible');
+      passwordContainer.setAttribute('aria-hidden', 'false');
+      submitContainer.classList.add('visible');
+
+      // Focus password input
+      passwordInput.focus();
+    });
+
+    // Allow pressing Enter in username to trigger arrow click
+    usernameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        nextArrow.click();
+      }
+    });
+  </script>
+</body>
+</html>
