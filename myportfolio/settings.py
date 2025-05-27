@@ -4,10 +4,10 @@ from pathlib import Path
 # BASE DIRECTORY
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY: Load secret key and debug mode from environment variables
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'replace-this-with-a-secure-key')
+# SECURITY
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dummy-key-please-change-in-production')
 DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'myportfolio-5tb9.onrender.com').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'myportfolio-5tb9.onrender.com,localhost,127.0.0.1').split(',')
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
@@ -23,7 +23,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Enables static file serving
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,15 +52,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myportfolio.wsgi.application'
 
-# DATABASE CONFIGURATION
+# DATABASE
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DJANGO_DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DJANGO_DB_NAME', BASE_DIR / 'db.sqlite3'),
-        'USER': os.getenv('DJANGO_DB_USER', ''),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),
-        'HOST': os.getenv('DJANGO_DB_HOST', ''),
-        'PORT': os.getenv('DJANGO_DB_PORT', ''),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -79,11 +75,20 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# STATIC FILES
+# STATIC FILES (UPDATED FIX)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    BASE_DIR / 'portfolio/static',  # Add app-specific static dir if needed
+]
+
+# Whitenoise configuration
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # MEDIA FILES
 MEDIA_URL = '/media/'
@@ -92,17 +97,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # DEFAULT AUTO FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTHENTICATION REDIRECTS
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
 # REST FRAMEWORK
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'  # More flexible than IsAuthenticated
+    ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FormParser',
     ]
 }
+
+# SECURITY HEADERS (for production)
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
