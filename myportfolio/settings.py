@@ -6,11 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY: Load secret key and debug mode from environment variables
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'replace-this-with-a-secure-key')
-
 DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
-
-# SECURITY: Specify allowed hosts explicitly in production
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'yourdomain.com').split(',')
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'myportfolio-5tb9.onrender.com').split(',')
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
@@ -20,17 +17,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Third-party apps
     'rest_framework',
-
-    # Local apps
     'portfolio',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Enable WhiteNoise for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Enables static file serving
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,15 +79,11 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# STATIC FILES (production-ready)
+# STATIC FILES
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic gathers files
-
-# Enable WhiteNoise static files storage with compression & caching
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Extra static files locations (optional)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA FILES
 MEDIA_URL = '/media/'
@@ -103,7 +92,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # DEFAULT AUTO FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTHENTICATION
+# AUTHENTICATION REDIRECTS
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
