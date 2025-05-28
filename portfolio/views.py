@@ -1,6 +1,13 @@
 from rest_framework import viewsets
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.shortcuts import render
+
+def custom_404_view(request, exception):
+    return render(request, 'portfolio/errors/404.html', status=404)
+
+def custom_500_view(request):
+    return render(request, 'portfolio/errors/500.html', status=500)
 from .models import About, Skill, Certificate, Project, Experience, Education, Learning, Activity
 from .serializers import (
     AboutSerializer, SkillSerializer, CertificateSerializer, ProjectSerializer,

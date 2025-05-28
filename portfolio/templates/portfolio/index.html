@@ -683,10 +683,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const deleteButton = document.getElementById("deleteButton");
   const addButton = document.getElementById("addButton");
 
-  if (!itemSelector) {
-    console.error("Missing: #itemSelector element");
-    return;
-  }
+ if (!itemSelector) {
+  console.warn("itemSelector not present — likely because you're not logged in.");
+  return;
+}
+
 
   itemSelector.addEventListener("change", function () {
     currentItemId = this.value;

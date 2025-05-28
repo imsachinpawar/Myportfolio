@@ -1,16 +1,13 @@
-# Core Django
 Django>=4.2,<5.0
 djangorestframework>=3.16,<4.0
 
-# Windows-specific (will only install on Windows)
-pywin32>=305,<400; platform_system == "Windows"
+# Only install pywin32 on Windows
+pywin32>=305,<400; platform_system=="Windows"
 
-# HTTP clients
 requests>=2.32,<3.0
 httpx>=0.28,<0.30
 httpcore>=1.0,<2.0
 
-# Data science
 numpy>=1.24,<2.0
 pandas>=2.0,<3.0
 scikit-learn>=1.6,<2.0
@@ -18,27 +15,21 @@ scipy>=1.10,<2.0
 matplotlib>=3.7,<4.0
 seaborn>=0.13,<1.0
 
-# Utilities
 certifi>=2023.7.22,<2025.0
 pytz>=2023.3,<2025.0
 python-dateutil>=2.9,<3.0
 typing_extensions>=4.12,<5.0
 packaging>=24.0,<25.0
 
-# Flask (if you're using it alongside Django)
 Flask>=3.0,<4.0
 asgiref>=3.8,<4.0
 
-# Flask dependencies
 click>=8.1,<9.0
 Jinja2>=3.1,<4.0
 itsdangerous>=2.2,<3.0
 Werkzeug>=3.1,<4.0
+gunicorn>=20.1.0,<21.0.0
+whitenoise>=6.0.0
 
-# Production server
-gunicorn>=21.2.0,<22.0.0  # Updated to current stable version
-whitenoise>=6.6.0,<7.0.0  # Updated version for better static file handling
-
-# Database (add if you're using PostgreSQL)
-psycopg2-binary>=2.9.9,<3.0.0; platform_system != "Windows"
-psycopg2>=2.9.9,<3.0.0; platform_system == "Windows"
+dj-database-url==2.1.0
+psycopg2-binary==2.9.9
