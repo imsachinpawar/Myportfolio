@@ -385,15 +385,14 @@
   </main>
 </body>
 
-  <!-- CRUD Manager -->
+  <!-- CRUD Manager --> 
+<footer class="relative  text-center p-4 mt-12 shadow-inner text-sm text-gray-500">
   {% if user.is_authenticated %}
-<footer class="text-center p-4 mt-12 shadow-inner text-sm text-gray-500">
   <div class="crud-bg rounded-lg shadow-xl p-6 mt-10 max-w-5xl mx-auto border border-gray-300 bg-blur transition-shadow duration-300 hover:shadow-2xl">
     <div class="crud-overlay rounded-lg p-6 border border-gray-200 bg-blur">
       <h2 class="text-2xl font-semibold mb-6 text-gray-900 border-b border-gray-300 pb-3 tracking-wide">
         Universal CRUD Manager
       </h2>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8  bg-blur">
         <div>
           <label for="sectionSelector" class="block mb-2 text-sm font-semibold text-gray-700 tracking-wide">Select Section:</label>
@@ -448,12 +447,12 @@
       </div>
     </div>
   </div>
-
+{% endif %}
   <div class="mt-6 text-gray-500">
     &copy; 2025 Sachin Pawar. All rights reserved.
   </div>
 </footer>
-{% endif %}
+
 
 
 <script>
