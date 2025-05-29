@@ -17,6 +17,7 @@ class Skill(models.Model):
     PROFICIENCY_CHOICES = [
         ('Beginner', 'Beginner'),
         ('Intermediate', 'Intermediate'),
+        ('Advanced', 'Advanced'),
         ('Expert', 'Expert'),
     ]
     name = models.CharField(max_length=100)

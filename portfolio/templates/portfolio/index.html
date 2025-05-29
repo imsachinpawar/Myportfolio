@@ -218,7 +218,7 @@
 
 <body class="bg-fixed bg-cover bg-no-repeat bg-center" style="background-image: url('{% static 'images/background.jpg' %}')">
 
-<div class="absolute top-4 left-4 z-20">
+<span class="absolute top-4 left-4 z-20">
   {% if user.is_authenticated %}
     <form action="{% url 'logout' %}" method="post">
       {% csrf_token %}
@@ -231,12 +231,15 @@
       Login
     </a>
   {% endif %}
-</div>
+</span>
 
   <!-- Header -->
-  <header class="header-bg text-white shadow-lg flex items-center justify-between p-6 relative">
+  <header class="header-bg text-white shadow-lg flex flex-wrap items-center justify-between p-6 relative">
+    
     <div class="header-overlay absolute inset-0"></div>
-    <div class="relative z-10 w-full md:w-2/3">
+    
+    <div class="relative z-10 w-full sm:w-full md:w-2/3 px-4">
+      
       <h1 class="text-3xl font-bold  uppercase tracking-wide">Sachin Pawar</h1>
 
 <p class="text-base italic mt-2 text-gray-100">
@@ -276,7 +279,7 @@
 </p>
     </div>
     <div class="relative z-10 mt-6 md:mt-0">
-      <img src="{% static 'images/Profil5.JPG' %}" alt="Profile Photo" class="h-32 w-32 rounded-full profile-img" />
+      <img src="{% static 'images/Profil5.jpg' %}" alt="Profile Photo" class="h-32 w-32 rounded-full profile-img" />
     </div>
     
    <div class="relative z-10 mt-6 md:mt-0 flex flex-col items-center space-y-4 ml-6">
@@ -301,8 +304,6 @@
     </svg>
   </a>
 </div>
-
-
   </header>
 
   <!-- Navigation -->
@@ -322,18 +323,16 @@
 
     <section id="activity" class="section-card">
       <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Activity</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li>Actively working on Django + Tailwind portfolio project</li>
-        <li>Learning Full Stack Development with focus on Python</li>
-      </ul>
+      <div class="text-gray-700 space-y-4">
+  <p></p>
+</div>
     </section>
 
     <section id="about" class="section-card">
       <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">About Me</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li>Aspiring Cybersecurity Specialist with 2 years of Data Analyst experience</li>
-        <li>Currently pursuing MCA, passionate about ethical hacking</li>
-      </ul>
+      <div class="text-gray-700 space-y-4">
+  <p></p>
+</div>
     </section>
 
     <section id="experience" class="section-card">
@@ -386,15 +385,14 @@
   </main>
 </body>
 
-  <!-- CRUD Manager -->
+  <!-- CRUD Manager --> 
+<footer class="relative  text-center p-4 mt-12 shadow-inner text-sm text-gray-500">
   {% if user.is_authenticated %}
-<footer class="text-center p-4 mt-12 shadow-inner text-sm text-gray-500">
   <div class="crud-bg rounded-lg shadow-xl p-6 mt-10 max-w-5xl mx-auto border border-gray-300 bg-blur transition-shadow duration-300 hover:shadow-2xl">
     <div class="crud-overlay rounded-lg p-6 border border-gray-200 bg-blur">
       <h2 class="text-2xl font-semibold mb-6 text-gray-900 border-b border-gray-300 pb-3 tracking-wide">
         Universal CRUD Manager
       </h2>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8  bg-blur">
         <div>
           <label for="sectionSelector" class="block mb-2 text-sm font-semibold text-gray-700 tracking-wide">Select Section:</label>
@@ -449,12 +447,12 @@
       </div>
     </div>
   </div>
-
+{% endif %}
   <div class="mt-6 text-gray-500">
     &copy; 2025 Sachin Pawar. All rights reserved.
   </div>
 </footer>
-{% endif %}
+
 
 
 <script>
@@ -752,60 +750,66 @@ async function loadSectionData(section) {
 }
 
 // Render items in the section
+
 function renderSectionItems(section, items) {
   const sectionDiv = document.getElementById(section);
   if (!sectionDiv) return;
-  
+
+  // Step 1: Locate or create the <ul> container
   let ul = sectionDiv.querySelector("ul");
   if (!ul) {
     ul = document.createElement("ul");
     ul.className = "list-disc list-inside text-gray-700 space-y-2";
     sectionDiv.appendChild(ul);
   }
-  
+
+  // ✅ Step 2: Clear previously rendered <li> elements to avoid duplicates
   ul.innerHTML = '';
-  
+
+  // Step 3: Handle empty state
   if (items.length === 0) {
     ul.innerHTML = '<li class="text-gray-500">No items found</li>';
     return;
   }
-  
+
+  // Step 4: Render new list items
   items.forEach(item => {
     const li = document.createElement("li");
     li.dataset.id = item.id;
-    
+
     let content = '';
     switch(section) {
       case 'about':
         content = `<span>${item.content}</span>`;
         break;
+
       case 'education':
         content = `<strong>${item.degree}</strong> at ${item.institution} (${item.start_year}-${item.end_year || 'Present'})`;
         if (item.description) content += `<p class="text-sm text-gray-600 mt-1">${item.description}</p>`;
         break;
+
       case 'skills':
         content = `${item.name} - <span class="text-blue-600">${item.proficiency}</span>`;
         break;
 
-     case 'certificates':
-  content = `<strong>${item.title}</strong> issued by ${item.issued_by} on ${new Date(item.date_issued).toLocaleDateString()}`;
-  if (item.image_url) {
-    content += `
-      <a href="${item.image_url}" target="_blank" rel="noopener noreferrer" title="View Certificate Image">
-        🖼️ <span class="text-blue-600 underline hover:text-blue-800">View Certificate</span>
-      </a>`;
-  }
-  break;
-
+      case 'certificates':
+        content = `<strong>${item.title}</strong> issued by ${item.issued_by} on ${new Date(item.date_issued).toLocaleDateString()}`;
+        if (item.image_url) {
+          content += `<br><a href="${item.image_url}" target="_blank" rel="noopener noreferrer">
+            🖼️ <span class="text-blue-600 underline hover:text-blue-800">View Certificate</span>
+          </a>`;
+        }
+        break;
 
       case 'projects':
-       content = `<strong>${item.name}</strong> - ${item.description}<br>`;
-content += `<small class="text-gray-500">Technologies: ${item.technologies_used}</small>`;
-if (item.project_link) {
-  content += `<br><a href="${item.project_link}" target="_blank" class="text-blue-600 hover:underline">View Project</a>`;
-}
+        content = `<strong>${item.name}</strong> - ${item.description}<br>`;
+        content += `<small class="text-gray-500">Technologies: ${item.technologies_used}</small>`;
+        if (item.project_link) {
+          content += `<br><a href="${item.project_link}" target="_blank" class="text-blue-600 hover:underline">View Project</a>`;
+        }
         break;
-       case 'experience':
+
+      case 'experience':
         content = `<strong>${item.role}</strong> at ${item.company} (${new Date(item.start_date).getFullYear()} - ${item.end_date ? new Date(item.end_date).getFullYear() : 'Present'})`;
         if (item.location) content += `, <span class="text-gray-500">${item.location}</span>`;
         if (item.description) content += `<p class="text-sm text-gray-600 mt-1">${item.description}</p>`;
@@ -816,27 +820,25 @@ if (item.project_link) {
         if (item.description) content += `<p class="text-sm text-gray-600 mt-1">${item.description}</p>`;
         break;
 
-   case 'activity':
-  content = `<strong>${item.title}</strong> on ${new Date(item.date).toLocaleDateString()}`;
-  if (item.content) content += `<p class="text-sm text-gray-600 mt-1">${item.content}</p>`;
-  if (item.image_url) {
-    content += `
-      <a href="${item.image_url}" target="_blank" rel="noopener noreferrer" title="View Image">
-        🔍 <span class="text-blue-600 underline hover:text-blue-800">View Image</span>
-      </a>`;
-  }
-  break;
+      case 'activity':
+        content = `<strong>${item.title}</strong> on ${new Date(item.date).toLocaleDateString()}`;
+        if (item.content) content += `<p class="text-sm text-gray-600 mt-1">${item.content}</p>`;
+        if (item.image_url) {
+          content += `<br><a href="${item.image_url}" target="_blank" rel="noopener noreferrer">
+            🔍 <span class="text-blue-600 underline hover:text-blue-800">View Image</span>
+          </a>`;
+        }
+        break;
 
-
-       
       default:
         content = item.title || item.name || item.content;
     }
-    
+
     li.innerHTML = content;
     ul.appendChild(li);
   });
 }
+
 
 // Populate item selector dropdown
 async function populateItems() {
@@ -978,16 +980,17 @@ async function resetForm(section = null) {
 // Add new item
 async function addItem() {
   if (!currentSection) return;
-  
+
   try {
     const formData = new FormData();
     const jsonData = {};
-    
+
     // Collect form data based on section
-    switch(currentSection) {
+    switch (currentSection) {
       case 'about':
         jsonData.content = document.getElementById("aboutContent").value;
         break;
+
       case 'education':
         jsonData.degree = document.getElementById("eduDegree").value;
         jsonData.institution = document.getElementById("eduInstitution").value;
@@ -995,10 +998,12 @@ async function addItem() {
         jsonData.end_year = document.getElementById("eduEnd").value ? parseInt(document.getElementById("eduEnd").value) : null;
         jsonData.description = document.getElementById("eduDescription").value;
         break;
+
       case 'skills':
         jsonData.name = document.getElementById("skillName").value;
         jsonData.proficiency = document.getElementById("skillProficiency").value;
         break;
+
       case 'certificates':
         jsonData.title = document.getElementById("certTitle").value;
         jsonData.issued_by = document.getElementById("certIssuer").value;
@@ -1008,6 +1013,7 @@ async function addItem() {
           formData.append('image', certImage);
         }
         break;
+
       case 'activity':
         jsonData.title = document.getElementById("activityTitle").value;
         jsonData.content = document.getElementById("activityContent").value;
@@ -1041,21 +1047,19 @@ async function addItem() {
         jsonData.status = document.getElementById("learnStatus").value;
         jsonData.description = document.getElementById("learnDescription").value;
         break;
-
     }
-    
-    // For file uploads, use FormData, otherwise use JSON
+
+    // Prepare request options
     let options = {
       method: 'POST',
       headers: {
         'X-CSRFToken': getCookie('csrftoken'),
       }
     };
-    
-    if (formData.has('image')) {
-      // Add JSON data to FormData
-      console.log('jsonData before sending:', jsonData);
 
+    // Determine content type
+    if (formData.has('image')) {
+      console.log('jsonData before sending:', jsonData);
       for (const key in jsonData) {
         formData.append(key, jsonData[key]);
       }
@@ -1064,19 +1068,24 @@ async function addItem() {
       options.headers['Content-Type'] = 'application/json';
       options.body = JSON.stringify(jsonData);
     }
-    
+
+    // Send the request
     const response = await fetch(API_ENDPOINTS[currentSection], options);
-    
+
     if (!response.ok) {
-const errorData = await response.json();
-console.error("Backend validation error:", errorData);
-throw new Error(JSON.stringify(errorData));
+      const errorData = await response.json();
+      console.error("Backend validation error:", errorData);
+      throw new Error(JSON.stringify(errorData));
     }
-    
+
     const newItem = await response.json();
-    loadSectionData(currentSection);
-    populateItems();
-    resetForm(currentSection);
+    console.log("Item added:", newItem);
+
+    // ✅ Correct order of operations:
+    await loadSectionData(currentSection); // Refresh list
+    await populateItems();                 // Refresh dropdown
+    resetForm(currentSection);             // Clear form after success
+
     alert("Item added successfully!");
   } catch (error) {
     console.error('Error:', error);
