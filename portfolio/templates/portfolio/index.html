@@ -1,12 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sachin Pawar - Portfolio</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheets" href="custom.css" />
   <meta name="csrf-token" content="{{ csrf_token }}">
 
  <style>
@@ -17,23 +15,26 @@
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #0f172a; /* Dark background for contrast */
-    color:rgb(5, 5, 5);
+    color: #f8fafc;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
   }
 
   /* Navbar */
   .nav-link {
     position: relative;
     padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
+    margin: 0 0.25rem;
     border: 2px solid #3b82f6;
     border-radius: 0.5rem;
     background: transparent;
     backdrop-filter: blur(4px);
-    color:rgb(233, 226, 226);
+    color: #e5e7eb;
     font-weight: bold;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
   }
 
   .nav-link:hover {
@@ -64,11 +65,13 @@
     background-image: url("{% static 'images/Back.jpg' %}");
     background-size: cover;
     background-position: center;
-    height: 230px;
+    min-height: 200px;
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding: 1.5rem;
   }
 
   .header-overlay {
@@ -79,49 +82,52 @@
     top: 0;
     left: 0;
     z-index: 1;
-     backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  transition: background 0.3s ease;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    transition: background 0.3s ease;
   }
-.header-bg:hover .header-overlay {
-  background: rgba(0, 0, 0, 0.75);
-}
+  
+  .header-bg:hover .header-overlay {
+    background: rgba(0, 0, 0, 0.75);
+  }
 
   .profile-img {
     position: relative;
     z-index: 2;
     border: 3px solid white;
     border-radius: 9999px;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
-     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  will-change: transform;
-  cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    will-change: transform;
+    cursor: pointer;
   }
-.profile-img:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
-}
+  
+  .profile-img:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+  }
 
   /* Section Card - Transparent Glass with Bold White Content */
- .section-card {
+  .section-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(16px);
     border-radius: 1rem;
-    padding: 2rem;
-    margin: 2rem auto;
-    width: 90%;
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+    width: 95%;
     max-width: 900px;
     border-left: 6px solid #3b82f6;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
+  }
 
-.section-card * {
+  .section-card * {
     color: white;
-}
+  }
+  
   .section-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 16px 24px rgba(59, 130, 246, 0.25);
@@ -131,7 +137,7 @@
   .crud-form {
     background: transparent;
     backdrop-filter: blur(12px);
-    padding: 2rem;
+    padding: 1.5rem;
     margin-top: 1.5rem;
     border-radius: 1rem;
     animation: popIn 0.6s ease;
@@ -207,16 +213,63 @@
   .fade-delay-3 { animation-delay: 0.6s; }
   
   .bg-blur {
-  background-color: rgba(255, 255, 255, 0.4); /* translucent white */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* for Safari */
-}
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 
+  /* Responsive adjustments */
+  @media (min-width: 640px) {
+    .header-bg {
+      min-height: 230px;
+      padding: 2rem;
+    }
+    
+    .profile-img {
+      width: 180px;
+      height: 180px;
+    }
+    
+    .nav-link {
+      margin: 0 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .header-bg {
+      min-height: 250px;
+      padding: 2.5rem;
+    }
+    
+    .profile-img {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .section-card {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-bg {
+      min-height: 280px;
+    }
+  }
+
+  /* Sticky header */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
 </style>
 
 </head>
 
-<body class="bg-fixed bg-cover bg-no-repeat bg-center" style="background-image: url('{% static 'images/background.jpg' %}')">
+<body class="bg-cover bg-no-repeat bg-center" style="background-image: url('{% static 'images/background.jpg' %}')">
 
 <span class="absolute top-4 left-4 z-20">
   {% if user.is_authenticated %}
@@ -234,132 +287,135 @@
 </span>
 
   <!-- Header -->
-  <header class="header-bg text-white shadow-lg flex flex-wrap items-center justify-between p-6 relative">
-    
+  <header class="header-bg text-white shadow-lg relative">
     <div class="header-overlay absolute inset-0"></div>
     
-    <div class="relative z-10 w-full sm:w-full md:w-2/3 px-4">
+    <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between relative z-10">
+      <div class="w-full md:w-2/3 mb-6 md:mb-0">
+        <h1 class="text-2xl sm:text-3xl font-bold uppercase tracking-wide">Sachin Pawar</h1>
+
+        <p class="text-sm sm:text-base italic mt-2 text-gray-100">
+          Aspiring Cybersecurity Expert — Securing Digital Infrastructure & Driving Innovation with Integrity.
+        </p>
+
+        <div class="mt-3 flex flex-col sm:flex-row sm:flex-wrap gap-2 items-start sm:items-center text-xs sm:text-sm">
+          <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+              <circle cx="12" cy="9" r="2.5" />
+            </svg>
+            Vijayapura, Karnataka, India - 586203
+          </span>
+
+          <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M4 4h16v16H4z" fill="none"/>
+              <path d="M4 4l8 8 8-8" />
+            </svg>
+            sachinpawar.ka@gmail.com
+          </span>
+
+          <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2c0 .554-.224 1.053-.586 1.414L7.414 10.414A17.902 17.902 0 0013.586 16.586l2.586-2.586A2 2 0 0118 13h2a2 2 0 012 2v2a2 2 0 01-2 2h-.01C10.7 19 5 13.3 5 6.01V6a2 2 0 00-2-2z"/>
+            </svg>
+            +91 96630 53520
+          </span>
+        </div>
+
+        <div class="mt-3 flex flex-wrap items-center gap-2">
+          <span class="bg-blue-800 inline-block px-3 py-1 rounded-full text-xs sm:text-sm text-white font-medium">
+            Open to work
+          </span>
+          <span class="inline-block text-xs sm:text-sm text-gray-100">
+            Customer Support Specialist, Technical Support Specialist, IT Help Desk Support & Systems
+          </span>
+        </div>
+      </div>
       
-      <h1 class="text-3xl font-bold  uppercase tracking-wide">Sachin Pawar</h1>
+      <div class="flex flex-col items-center">
+        <img src="{% static 'images/Profil5.jpg' %}" alt="Profile Photo" class="profile-img" />
+        
+        <div class="mt-4 flex gap-4">
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/sachinpawar-ka/" target="_blank" class="text-white hover:text-blue-500 transition-transform transform hover:scale-110">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 002.48 2.5A2.5 2.5 0 007.48 6a2.5 2.5 0 00-2.5-2.5zM2 9h6v12H2zM9 9h5.5v1.71h.08c.76-1.44 2.62-2.96 5.42-2.96 5.8 0 6.87 3.79 6.87 8.72V21H20v-7.2c0-1.72-.03-3.93-2.4-3.93-2.4 0-2.77 1.87-2.77 3.8V21H9z"/>
+            </svg>
+          </a>
 
-<p class="text-base italic mt-2 text-gray-100">
-  Aspiring Cybersecurity Expert — Securing Digital Infrastructure & Driving Innovation with Integrity.
-</p>
+          <!-- GitHub -->
+          <a href="https://github.com/imsachinpawar" target="_blank" class="text-white hover:text-gray-400 transition-transform transform hover:scale-110">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.111.82-.261.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.386-1.333-1.754-1.333-1.754-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.42-1.305.763-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.526.117-3.176 0 0 1.008-.322 3.3 1.23A11.5 11.5 0 0112 6.844c1.02.005 2.045.138 3.002.404 2.29-1.552 3.296-1.23 3.296-1.23.654 1.65.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.807 5.624-5.48 5.921.43.372.814 1.102.814 2.222v3.293c0 .319.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
 
-<p class="text-sm mt-2 flex flex-wrap gap-4 items-center text-gray-100">
-  <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-      <circle cx="12" cy="9" r="2.5" />
-    </svg>
-    Vijayapura, Karnataka, India - 586203
-  </span>
-
-  <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M4 4h16v16H4z" fill="none"/>
-      <path d="M4 4l8 8 8-8" />
-    </svg>
-    sachinpawar.ka@gmail.com
-  </span>
-
-  <span class="flex items-center gap-1 bg-blue-600 px-2 py-1 rounded">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2c0 .554-.224 1.053-.586 1.414L7.414 10.414A17.902 17.902 0 0013.586 16.586l2.586-2.586A2 2 0 0118 13h2a2 2 0 012 2v2a2 2 0 01-2 2h-.01C10.7 19 5 13.3 5 6.01V6a2 2 0 00-2-2z"/>
-    </svg>
-    +91 96630 53520
-  </span>
-</p>
-
-<p class="mt-3 bg-blue-800 inline-block px-3 py-1 rounded-full text-sm text-white font-medium">
-  Open to work
-</p>
-<p class="inline-block ml-3 text-sm text-gray-100">
-  Customer Support Specialist, Technical Support Specialist, IT Help Desk Support & Systems
-</p>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/iemsachi/" target="_blank" class="text-white hover:text-pink-500 transition-transform transform hover:scale-110">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.331 3.608 1.306.976.975 1.244 2.243 1.306 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.331 2.633-1.306 3.608-.975.976-2.243 1.244-3.608 1.306-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.331-3.608-1.306-.976-.975-1.244-2.243-1.306-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.331-2.633 1.306-3.608.975-.976 2.243-1.244 3.608-1.306C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.772.13 4.585.413 3.533 1.464 2.48 2.515 2.196 3.702 2.138 4.982.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.058 1.28.342 2.467 1.393 3.519 1.051 1.051 2.239 1.335 3.519 1.393 1.28.058 1.689.072 4.948.072s3.668-.014 4.948-.072c1.28-.058 2.467-.342 3.519-1.393 1.051-1.051 1.335-2.239 1.393-3.519.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.058-1.28-.342-2.467-1.393-3.519C19.467.413 18.28.13 17 .072 15.719.014 15.309 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="relative z-10 mt-6 md:mt-0">
-      <img src="{% static 'images/Profil5.jpg' %}" alt="Profile Photo" class="h-32 w-32 rounded-full profile-img" />
-    </div>
-    
-   <div class="relative z-10 mt-6 md:mt-0 flex flex-col items-center space-y-4 ml-6">
-  <!-- LinkedIn -->
-  <a href="https://www.linkedin.com/in/sachinpawar-ka/" target="_blank" class="text-white hover:text-blue-500 transition-transform transform hover:scale-110">
-    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 002.48 2.5A2.5 2.5 0 007.48 6a2.5 2.5 0 00-2.5-2.5zM2 9h6v12H2zM9 9h5.5v1.71h.08c.76-1.44 2.62-2.96 5.42-2.96 5.8 0 6.87 3.79 6.87 8.72V21H20v-7.2c0-1.72-.03-3.93-2.4-3.93-2.4 0-2.77 1.87-2.77 3.8V21H9z"/>
-    </svg>
-  </a>
-
-  <!-- GitHub -->
-  <a href="https://github.com/imsachinpawar" target="_blank" class="text-white hover:text-gray-400 transition-transform transform hover:scale-110">
-    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.111.82-.261.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.386-1.333-1.754-1.333-1.754-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.42-1.305.763-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.526.117-3.176 0 0 1.008-.322 3.3 1.23A11.5 11.5 0 0112 6.844c1.02.005 2.045.138 3.002.404 2.29-1.552 3.296-1.23 3.296-1.23.654 1.65.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.807 5.624-5.48 5.921.43.372.814 1.102.814 2.222v3.293c0 .319.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-    </svg>
-  </a>
-
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/iemsachi/" target="_blank" class="text-white hover:text-pink-500 transition-transform transform hover:scale-110">
-    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.331 3.608 1.306.976.975 1.244 2.243 1.306 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.331 2.633-1.306 3.608-.975.976-2.243 1.244-3.608 1.306-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.331-3.608-1.306-.976-.975-1.244-2.243-1.306-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.331-2.633 1.306-3.608.975-.976 2.243-1.244 3.608-1.306C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.772.13 4.585.413 3.533 1.464 2.48 2.515 2.196 3.702 2.138 4.982.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.058 1.28.342 2.467 1.393 3.519 1.051 1.051 2.239 1.335 3.519 1.393 1.28.058 1.689.072 4.948.072s3.668-.014 4.948-.072c1.28-.058 2.467-.342 3.519-1.393 1.051-1.051 1.335-2.239 1.393-3.519.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.058-1.28-.342-2.467-1.393-3.519C19.467.413 18.28.13 17 .072 15.719.014 15.309 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
-    </svg>
-  </a>
-</div>
   </header>
 
   <!-- Navigation -->
-<nav class="bg-black/40 backdrop-blur-md shadow-[0_4px_12px_rgba(59,130,246,0.4)] px-6 py-4 flex flex-wrap gap-4 justify-center sticky top-0 z-50 ">
-    <a href="#activity" class="nav-link text-gray-700 font-medium">Activity</a>
-    <a href="#about" class="nav-link text-gray-700 font-medium">About</a>
-    <a href="#experience" class="nav-link text-gray-700 font-medium">Experience</a>
-    <a href="#skills" class="nav-link text-gray-700 font-medium">Skills</a>
-    <a href="#learning" class="nav-link text-gray-700 font-medium">Learning</a>
-    <a href="#projects" class="nav-link text-gray-700 font-medium">Projects</a>
-    <a href="#certificates" class="nav-link text-gray-700 font-medium">Certificates</a>
-    <a href="#education" class="nav-link text-gray-700 font-medium">Education</a>
+  <nav class="bg-black/40 backdrop-blur-md shadow-[0_4px_12px_rgba(59,130,246,0.4)] px-4 py-3 flex flex-wrap gap-2 sm:gap-4 justify-center sticky-nav">
+    <a href="#activity" class="nav-link">Activity</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#experience" class="nav-link">Experience</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#learning" class="nav-link">Learning</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#certificates" class="nav-link">Certificates</a>
+    <a href="#education" class="nav-link">Education</a>
   </nav>
 
   <!-- Main Content -->
-  <main class="max-w-5xl mx-auto p-6">
+  <main class="container mx-auto px-4 py-6 max-w-5xl">
 
-    <section id="activity" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Activity</h2>
-      <div class="text-gray-700 space-y-4">
-  <p></p>
-</div>
+    <section id="activity" class="section-card fade-section">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Activity</h2>
+      <div class="space-y-4">
+        <p></p>
+      </div>
     </section>
 
-    <section id="about" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">About Me</h2>
-      <div class="text-gray-700 space-y-4">
-  <p></p>
-</div>
+    <section id="about" class="section-card fade-section fade-delay-1">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">About Me</h2>
+      <div class="space-y-4">
+        <p></p>
+      </div>
     </section>
 
-    <section id="experience" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Experience</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
+    <section id="experience" class="section-card fade-section fade-delay-2">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Experience</h2>
+      <ul class="list-disc list-inside space-y-2">
         <li>Data Analyst at Verificient Solutions Pvt. Ltd. (2 years)</li>
       </ul>
     </section>
 
-    <section id="skills" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Skills</h2>
+    <section id="skills" class="section-card fade-section fade-delay-3">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Skills</h2>
       <div class="flex flex-wrap gap-2">
        
       </div>
     </section>
 
     <section id="learning" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Ongoing Learning</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Ongoing Learning</h2>
+      <ul class="list-disc list-inside space-y-2">
         <li>Advanced Web Security Concepts</li>
         <li>Building AI Assistants with Python</li>
       </ul>
     </section>
 
     <section id="projects" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Projects</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Projects</h2>
+      <ul class="list-disc list-inside space-y-2">
         <li>LogShield – Python-based Log Analysis Tool</li>
         <li>VisionLock – Eye Blink Authentication with Morse Code</li>
         <li>Recipe Meal Planner – Django CRUD App</li>
@@ -367,16 +423,16 @@
     </section>
 
     <section id="certificates" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Certificates</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Certificates</h2>
+      <ul class="list-disc list-inside space-y-2">
         <li>Ethical Hacking - Simplilearn</li>
         <li>Python Full Stack Development - Udemy</li>
       </ul>
     </section>
 
     <section id="education" class="section-card">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Education</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <h2 class="text-xl sm:text-2xl font-bold mb-4 border-b pb-2">Education</h2>
+      <ul class="list-disc list-inside space-y-2">
         <li>MCA - Rani Channamma University (Pursuing)</li>
         <li>BSc Computer Science - Completed</li>
       </ul>
@@ -1228,7 +1284,6 @@ async function deleteItem() {
     alert(`Delete failed: ${error.message}`);
   }
 }
-
 </script>
 </body>
 </html>
